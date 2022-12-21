@@ -73,6 +73,15 @@ function TableMahasiswa() {
     setTelp("");
   };
 
+  const deleteData = (id, rev) => {
+    axios.delete(`${API_URL}${id}/?rev=${rev}`, {
+      auth: {
+        username: username,
+        password: password,
+      },
+    });
+  };
+
   return (
     <Container className="mt-5">
       <Card>
@@ -101,7 +110,12 @@ function TableMahasiswa() {
                     <Button variant="success" size="sm" className="pt-0 m-1">
                       <FaPen />
                     </Button>
-                    <Button variant="danger" size="sm" className="pt-0 m-1">
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      className="pt-0 m-1"
+                      onClick={() => deleteData(items._id, items._rev)}
+                    >
                       <FaTrashAlt />
                     </Button>
                   </td>
