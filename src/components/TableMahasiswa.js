@@ -1,7 +1,14 @@
 import { Button, Card, Container, Table, Form } from "react-bootstrap";
 import { FaTrashAlt, FaPen, FaPlus, FaUndo } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function TableMahasiswa() {
+  const API_URL = "http://localhost:5984";
+  const [mahasiswa, setMahasiswa] = useState([]);
+  useEffect(() => {
+    axios.post(`${API_URL}/mahasiswas/_find`);
+  }, [mahasiswa]);
   return (
     <Container className="mt-5">
       <Card>
