@@ -4,9 +4,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function TableMahasiswa() {
-  const API_URL = "http://localhost:5984/mahasiswas/_find";
+  const API_URL = "http://localhost:5984/mahasiswas/";
   const username = "admin";
   const password = "password";
+  const [_id, setId] = useState("");
+  const [nim, setNim] = useState("");
+  const [nama, setNama] = useState("");
+  const [email, setEmail] = useState("");
+  const [telp, setTelp] = useState("");
   const [mahasiswa, setMahasiswa] = useState([]);
   const data = {
     selector: {
@@ -15,9 +20,10 @@ function TableMahasiswa() {
       },
     },
   };
+
   useEffect(() => {
     axios
-      .post(API_URL, data, {
+      .post(`${API_URL}/_find`, data, {
         headers: {
           "content-type": "application/json",
         },
@@ -28,8 +34,45 @@ function TableMahasiswa() {
       })
       .then((res) => {
         setMahasiswa(res.data.docs);
+        var count = Object.keys(res.data.docs).length;
+        setId(count);
       });
   }, [mahasiswa]);
+
+  const postData = (e) => {
+    e.preventDefault();
+    try {
+      axios.put(
+        `${API_URL}/${_id + 1}`,
+        {
+          nim: nim,
+          nama: nama,
+          email: email,
+          telp: telp,
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+          auth: {
+            username: username,
+            password: password,
+          },
+        }
+      );
+    } catch (error) {
+      if (error.response) {
+      }
+    }
+  };
+
+  const resetForm = () => {
+    setNim("");
+    setNama("");
+    setEmail("");
+    setTelp("");
+  };
+
   return (
     <Container className="mt-5">
       <Card>
@@ -48,7 +91,7 @@ function TableMahasiswa() {
             </thead>
             <tbody>
               {mahasiswa.map((items) => (
-                <tr>
+                <tr key={items._id}>
                   <td>{items._id}</td>
                   <td>{items.nim}</td>
                   <td>{items.nama}</td>
@@ -67,22 +110,48 @@ function TableMahasiswa() {
               <tr>
                 <td></td>
                 <td>
-                  <Form.Control type="text" />
+                  <Form.Control
+                    type="text"
+                    value={nim}
+                    onChange={(e) => setNim(e.target.value)}
+                  />
                 </td>
                 <td>
-                  <Form.Control type="text" />
+                  <Form.Control
+                    type="text"
+                    value={nama}
+                    onChange={(e) => setNama(e.target.value)}
+                  />
                 </td>
                 <td>
-                  <Form.Control type="text" />
+                  <Form.Control
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </td>
                 <td>
-                  <Form.Control type="text" />
+                  <Form.Control
+                    type="text"
+                    value={telp}
+                    onChange={(e) => setTelp(e.target.value)}
+                  />
                 </td>
                 <td className="">
-                  <Button variant="primary" size="sm" className="pt-0 m-1">
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    className="pt-0 m-1"
+                    onClick={postData}
+                  >
                     <FaPlus />
                   </Button>
-                  <Button variant="secondary" size="sm" className="pt-0 m-1">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="pt-0 m-1"
+                    onClick={resetForm}
+                  >
                     <FaUndo />
                   </Button>
                 </td>
