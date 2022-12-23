@@ -1,70 +1,93 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
+# Manajemen Basis Data  - Kelompok 7 [CouchDB]
+![Anggota Kelompok](https://raw.githubusercontent.com/Gaduh-Hartawan/kelompok7-couchdb-uas/master/Dokumentasi/PPT%20CouchDB%20-%20Kel7.jpg)
+ 
+## How To Use
+Di dalam directory project jalankan command berikut
+ 
+### `npm install`
+Command tersebut diperlukan untuk mengintall module atau package npm.
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Command untuk menjalankan aplikasi.\
+Buka [http://localhost:3000](http://localhost:3000) untuk dapat mengakses aplikasi pada browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Tampilan Awal
+![TampilanAwal](https://github.com/Gaduh-Hartawan/kelompok7-couchdb-uas/blob/master/Dokumentasi/TampilanAwal.png)
 
-### `npm test`
+### Tambah Data
+![TambahData](https://github.com/Gaduh-Hartawan/kelompok7-couchdb-uas/blob/master/Dokumentasi/TambahData1.png)
+Isi Form Pada Table lalu klik Button + untuk menambah Data
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![TambahData](https://github.com/Gaduh-Hartawan/kelompok7-couchdb-uas/blob/master/Dokumentasi/TambahData2.png)
+Data berhasil Ditambahkan, untuk Clear Form tekan Button pada setelah button +
 
-### `npm run build`
+### Update Data
+![UpdateData](https://github.com/Gaduh-Hartawan/kelompok7-couchdb-uas/blob/master/Dokumentasi/UpdateData1.png)
+Klik button edit.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![UpdateData](https://github.com/Gaduh-Hartawan/kelompok7-couchdb-uas/blob/master/Dokumentasi/UpdateData2.png)
+Edit data pada form, kemudian klik button centang untuk submit.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![UpdateData](https://github.com/Gaduh-Hartawan/kelompok7-couchdb-uas/blob/master/Dokumentasi/UpdateData3.png)
+Data berhasil di update.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Delete Data
+![DeletData](https://github.com/Gaduh-Hartawan/kelompok7-couchdb-uas/blob/master/Dokumentasi/DeleteData1.png)
+Klik button tong sampah pada data yang ingin dihapus
 
-### `npm run eject`
+![DeletData](https://github.com/Gaduh-Hartawan/kelompok7-couchdb-uas/blob/master/Dokumentasi/DeleteData2.png)
+Data berhasil dihapus
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## API Endpoint
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`http://couchdb_host:5984/db_name/document_id/`\
+\
+`http://couchdb_host:5984/db_name/mongo_query/`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Diatas adalah struktur dasar penggunaan API pada couchdb.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contoh API yang Digunakan
+### Create Database
+**PUT** `http://localhost:5984/mahasiswas`
+### Insert Data
+**PUT** `http://localhost:5984/mahasiswas/1/`\
+Request Body :
+```json
+{
+  "nim": "1207050033",
+  "nama": "Eneng Raysa Bunga Rizkya",
+  "email": "eneng@mail.com",
+  "telp": "081264768461"
+}
+```
+### Read Data
+**POST** `http://localhost:5984/mahasiswas/_find`\
+Request Body :
+```json
+{
+   "selector": {
+      "_id": {
+         "$gt": null
+      }
+   }
+}
+```
+### Read Data by ID
+**GET** `http://localhost:5984/mahasiswas/2/`
+### Update Data
+**PUT** `http://localhost:5984/mahasiswas/2/`\
+Request Body :
+```json
+{
+  "_rev" : "1-5d8715c372003e721f0784db3dc85c02",
+  "nim": "1207050041",
+  "nama": "Frinaldi M Syauqi",
+  "email": "frinaldi@mail.com",
+  "telp": "089518928586"
+}
+```
+### Delete Data
+**DELETE** `http://localhost:5984/mahasiswas/2/?rev=1-5d8715c372003e721f0784db3dc85c02`
+### Delete Database
+**DELETE** `http://localhost:5984/mahasiswas`
