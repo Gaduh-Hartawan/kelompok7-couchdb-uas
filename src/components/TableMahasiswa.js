@@ -77,15 +77,6 @@ function TableMahasiswa() {
     setTelp("");
   };
 
-  const deleteData = (id, rev) => {
-    axios.delete(`${API_URL}${id}/?rev=${rev}`, {
-      auth: {
-        username: username,
-        password: password,
-      },
-    });
-  };
-
   return (
     <Container className="mt-5">
       <Card>
