@@ -100,6 +100,7 @@ class DataMahasiswa extends React.Component {
               onClick={() => {
                 updateData();
                 this.editData();
+                this.props.msg("Update Data Berhasil");
               }}
             >
               <FaCheck />
@@ -140,7 +141,10 @@ class DataMahasiswa extends React.Component {
               variant="danger"
               size="sm"
               className="pt-0 m-1"
-              onClick={() => deleteData(this.props._id, this.props._rev)}
+              onClick={() => {
+                deleteData(this.props._id, this.props._rev);
+                this.props.msg("Hapus Data Berhasil");
+              }}
             >
               <FaTrashAlt />
             </Button>
