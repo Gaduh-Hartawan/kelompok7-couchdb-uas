@@ -13,15 +13,23 @@ function TableMahasiswa() {
   const [email, setEmail] = useState("");
   const [telp, setTelp] = useState("");
   const [mahasiswa, setMahasiswa] = useState([]);
-  const data = {
-    selector: {
-      _id: {
-        $gt: null,
-      },
-    },
-  };
+  const [isUpdate, setUpdate] = useState(false);
+  const [editData, setEditData] = useState({
+    _id: "10",
+    nim: "1207050041",
+    nama: "Frinaldi Syauqi",
+    email: "frinaldi@mail.com",
+    telp: "089518928586",
+  });
 
   useEffect(() => {
+    const data = {
+      selector: {
+        _id: {
+          $gt: null,
+        },
+      },
+    };
     axios
       .post(`${API_URL}/_find`, data, {
         headers: {
