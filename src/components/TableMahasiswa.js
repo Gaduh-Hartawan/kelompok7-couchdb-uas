@@ -1,4 +1,4 @@
-import { Button, Card, Container, Table, Form } from "react-bootstrap";
+import { Button, Card, Container, Table, Form, Alert } from "react-bootstrap";
 import { FaPlus, FaUndo } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -14,6 +14,7 @@ function TableMahasiswa() {
   const [email, setEmail] = useState("");
   const [telp, setTelp] = useState("");
   const [mahasiswa, setMahasiswa] = useState([]);
+  const [msg, setMsg] = useState("");
 
   function getData() {
     const data = {
@@ -82,6 +83,11 @@ function TableMahasiswa() {
       <Card>
         <Card.Header as="h5">Tabel Mahasiswa</Card.Header>
         <Card.Body>
+          {msg ? (
+            <Alert variant="secondary" onClose={() => setMsg("")} dismissible>
+              <strong>{msg}</strong>
+            </Alert>
+          ) : null}
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -103,6 +109,7 @@ function TableMahasiswa() {
                     email={items.email}
                     telp={items.telp}
                     _rev={items._rev}
+                    msg={setMsg}
                   />
                 );
               })}
@@ -141,7 +148,10 @@ function TableMahasiswa() {
                     variant="primary"
                     size="sm"
                     className="pt-0 m-1"
-                    onClick={postData}
+                    onClick={() => {
+                      postData();
+                      setMsg("Tambah Data Berhasil");
+                    }}
                   >
                     <FaPlus />
                   </Button>
