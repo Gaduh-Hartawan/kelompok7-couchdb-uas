@@ -13,6 +13,7 @@ function TableMahasiswa() {
   const [email, setEmail] = useState("");
   const [telp, setTelp] = useState("");
   const [mahasiswa, setMahasiswa] = useState([]);
+  const [edit, isEdit] = useState(false);
   const [isUpdate, setUpdate] = useState(false);
   const [editData, setEditData] = useState({
     _id: "10",
@@ -90,6 +91,8 @@ function TableMahasiswa() {
     });
   };
 
+  console.log("edit adalah " + edit);
+
   return (
     <Container className="mt-5">
       <Card>
@@ -107,6 +110,85 @@ function TableMahasiswa() {
               </tr>
             </thead>
             <tbody>
+              {edit === true ? (
+                <tr>
+                  <td></td>
+                  <td>
+                    <Form.Control
+                      type="text"
+                      value={nim}
+                      onChange={(e) => setNim(e.target.value)}
+                    />
+                  </td>
+                  <td>
+                    <Form.Control
+                      type="text"
+                      value={nama}
+                      onChange={(e) => setNama(e.target.value)}
+                    />
+                  </td>
+                  <td>
+                    <Form.Control
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </td>
+                  <td>
+                    <Form.Control
+                      type="text"
+                      value={telp}
+                      onChange={(e) => setTelp(e.target.value)}
+                    />
+                  </td>
+                  <td className="">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      className="pt-0 m-1"
+                      onClick={postData}
+                    >
+                      <FaPlus />
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      className="pt-0 m-1"
+                      onClick={resetForm}
+                    >
+                      <FaUndo />
+                    </Button>
+                  </td>
+                </tr>
+              ) : (
+                <>
+                  <tr>
+                    <td>1</td>
+                    <td>1207050042</td>
+                    <td>Gaduh Hartawan</td>
+                    <td>gaduh@mail.com</td>
+                    <td>087821314215</td>
+                    <td>
+                      <Button
+                        variant="success"
+                        size="sm"
+                        className="pt-0 m-1"
+                        onClick={() => isEdit(true)}
+                      >
+                        <FaPen />
+                      </Button>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        className="pt-0 m-1"
+                        // onClick={() => deleteData(items._id, items._rev)}
+                      >
+                        <FaTrashAlt />
+                      </Button>
+                    </td>
+                  </tr>
+                </>
+              )}
               {mahasiswa.map((items) => (
                 <tr key={items._id}>
                   <td>{items._id}</td>
