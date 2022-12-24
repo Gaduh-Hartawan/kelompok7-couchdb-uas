@@ -84,7 +84,7 @@ Request Body :
   "nim": "1207050041",
   "nama": "Frinaldi M Syauqi",
   "email": "frinaldi@mail.com",
-  "telp": "089518928586"
+  "telp": "08XXXXXXXXXX"
 }
 ```
 ### Delete Data
